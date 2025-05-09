@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../widgets/app_bar_home.dart';
+import '../widgets/bottom_navigation_bar_home.dart';
+import '../widgets/category_home.dart';
+import '../widgets/recommended_batik_home.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String _selectedCategory = 'All';
+
+  void _onCategorySelected(String category) {
+    setState(() {
+      _selectedCategory = category;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const AppBarHome(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 226,
+              child: Text(
+                'Temukan Kain Batik Terbaik untuk Anda',
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 22,
+                    color: Color(0xFF4A4543),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            SizedBox(
+              height: 40,
+              child: CategoryHome(
+                onCategorySelected: _onCategorySelected,
+              ),
+            ),
+            const SizedBox(height: 30),
+            Text(
+              "Recommended Kain Batik",
+              style: GoogleFonts.poppins(
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: Color(0xFF4A4543),
+                ),
+              ),
+            ),
+            Expanded(
+              child: RecommendedBatiksHome(
+                category: _selectedCategory,
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: const BottomNavbarHome(),
+    );
+  }
+}
